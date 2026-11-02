@@ -1,1 +1,31 @@
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вход — Vilka Script</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#111827;color:#fff;font-family:Arial,sans-serif}.box{width:90%;max-width:380px;text-align:center}input,button{width:100%;padding:14px;margin-top:12px;border-radius:8px;font-size:16px}input{border:1px solid #374151;background:#1f2937;color:#fff}button{border:0;background:#1683ff;color:#fff;cursor:pointer}button:hover{background:#0069df}#error{color:#ff7373;min-height:20px}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Введите пароль</h1>
+  <form id="loginForm">
+    <input id="password" type="password" placeholder="Введите пароль" required>
+    <button type="submit">Войти</button>
+  </form>
+  <p id="error" role="alert"></p>
+</div>
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (document.getElementById('password').value === 'scriptpatrickmaining') {
+    window.location.href = 'welcome.html';
+  } else {
+    document.getElementById('error').textContent = 'Неверный пароль. Попробуй ещё раз.';
+  }
+});
+</script>
+</body>
+</html>
