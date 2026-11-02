@@ -15,14 +15,18 @@
       color: white;
       font-family: Arial, sans-serif;
     }
+    /* По умолчанию все страницы скрыты */
     .page {
-      display: none;
+      display: none !important;
       min-height: 100vh;
+      width: 100%;
       padding: 24px;
     }
+    /* Показываем только активную страницу */
     .page.active {
-      display: flex;
+      display: flex !important;
     }
+    /* Страница входа */
     #loginPage,
     #welcomePage {
       align-items: center;
@@ -32,12 +36,14 @@
     .box {
       width: 100%;
       max-width: 380px;
+      margin: auto;
     }
     input,
     button {
+      display: block;
       width: 100%;
       padding: 15px;
-      margin-top: 12px;
+      margin-top: 14px;
       border-radius: 8px;
       font-size: 16px;
     }
@@ -45,21 +51,26 @@
       border: 1px solid #374151;
       background: #1f2937;
       color: white;
+      outline: none;
     }
     button {
       border: none;
       background: #1683ff;
       color: white;
       cursor: pointer;
+      transition: background 0.2s;
     }
     button:hover {
       background: #0069df;
     }
     #error {
       color: #ff7373;
+      min-height: 20px;
     }
+    /* Панель управления */
     #panelPage {
       flex-direction: column;
+      align-items: stretch;
     }
     .top-bar {
       display: flex;
@@ -75,8 +86,8 @@
       margin-top: 28px;
     }
     .panel-content h2 {
+      margin: 0 0 20px;
       font-size: 22px;
-      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -90,18 +101,19 @@
           id="password"
           type="password"
           placeholder="Введите пароль"
+          autocomplete="off"
           required
         >
         <button type="submit">Войти</button>
       </form>
-      <p id="error"></p>
+      <p id="error" role="alert"></p>
     </div>
   </section>
   <!-- СТРАНИЦА 2: ПРИВЕТСТВИЕ -->
   <section id="welcomePage" class="page">
     <div class="box">
       <h1>Добро пожаловать!</h1>
-      <button onclick="showPage('panelPage')">
+      <button id="continueButton" type="button">
         Продолжить
       </button>
     </div>
@@ -111,44 +123,59 @@
     <header class="top-bar">
       <div class="site-name">vilka script</div>
     </header>
-    <div class="panel-content">
+    <main class="panel-content">
       <h2>Панель управления</h2>
-      <button onclick="manageAccounts()">
+      <button id="accountsButton" type="button">
         Управление аккаунтами
       </button>
-      <button onclick="launchClicker()">
+      <button id="clickerButton" type="button">
         Запустить кликер
       </button>
-    </div>
+    </main>
   </section>
   <script>
-    // Переключение между тремя страницами
+    const PASSWORD = "scriptpatrickmaining";
+    // Переключение экранов
     function showPage(pageId) {
       document.querySelectorAll(".page").forEach(function(page) {
         page.classList.remove("active");
       });
-      document.getElementById(pageId).classList.add("active");
+      const selectedPage = document.getElementById(pageId);
+      if (selectedPage) {
+        selectedPage.classList.add("active");
+      }
     }
     // Проверка пароля
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      const password = document.getElementById("password").value;
-      if (password === "scriptpatrickmaining") {
-        document.getElementById("error").textContent = "";
-        showPage("welcomePage");
-      } else {
-        document.getElementById("error").textContent =
-          "Неверный пароль. Попробуй ещё раз.";
-      }
-    });
-    // Кнопка управления аккаунтами
-    function manageAccounts() {
-      alert("Раздел управления аккаунтами пока не подключён.");
-    }
-    // Кнопка запуска кликера
-    function launchClicker() {
-      alert("Кликер пока не подключён.");
-    }
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
+        const enteredPassword =
+          document.getElementById("password").value;
+        if (enteredPassword === PASSWORD) {
+          document.getElementById("error").textContent = "";
+          showPage("welcomePage");
+        } else {
+          document.getElementById("error").textContent =
+            "Неверный пароль. Попробуй ещё раз.";
+        }
+      });
+    // Переход к панели
+    document
+      .getElementById("continueButton")
+      .addEventListener("click", function() {showPage("panelPage");
+      });
+    // Пока это демонстрационные кнопки
+    document
+      .getElementById("accountsButton")
+      .addEventListener("click", function() {
+        alert("Раздел «Управление аккаунтами» пока не подключён.");
+      });
+    document
+      .getElementById("clickerButton")
+      .addEventListener("click", function() {
+        alert("Кликер пока не подключён.");
+      });
   </script>
 </body>
 </html>
