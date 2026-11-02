@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #10131a;
+            color: white;
+        }
+
+        .card {
+            width: 90%;
+            max-width: 380px;
+            padding: 30px;
+            background: #1c2230;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin: 15px 0;
+            border: 1px solid #414b60;
+            border-radius: 8px;
+            background: #10131a;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #3478f6;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2463d8;
+        }
+
+        #error {
+            color: #ff6868;
+            margin-top: 12px;
+        }
+
+        #interface {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card" id="login">
+        <h2>🔐 Введите пароль</h2>
+        <p>Введите пароль для продолжения</p>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Введите пароль"
+        >
+
+        <button onclick="login()">Войти</button>
+
+        <p id="error"></p>
+    </div>
+
+    <div class="card" id="interface">
+        <h2>Добро пожаловать!</h2>
+        <p>Скрипт запущен!</p>
+        <p>Это твой личный интерфейс.</p>
+    </div>
+
+    <script>
+        function login() {
+            const password = document.getElementById("password").value;
+
+            if (password === "scriptpatrickmaining") {
+                document.getElementById("login").style.display = "none";
+                document.getElementById("interface").style.display = "block";
+            } else {
+                document.getElementById("error").textContent =
+                    "Неверный пароль!";
+            }
+        }
+
+        document.getElementById("password").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>
