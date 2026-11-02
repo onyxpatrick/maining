@@ -3,73 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vilka script</title>
+  <title>Вход — Vilka Script</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      min-height: 100vh;
-      background: #111827;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-    .page {
-      display: none;
-    }
-    .center-page {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 20px;
+      background: #111827;
+      color: white;
+      font-family: Arial, sans-serif;
     }
-    .login-box,
-    .welcome-box {
-      width: 100%;
+    .box {
+      width: 90%;
       max-width: 380px;
+      text-align: center;
     }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 24px;
-    }
-    input {
+    input, button {
       width: 100%;
       padding: 14px;
-      margin-bottom: 14px;
-      border: 1px solid #374151;
+      margin-top: 12px;
       border-radius: 8px;
+      font-size: 16px;
+    }
+    input {
+      border: 1px solid #374151;
       background: #1f2937;
       color: white;
-      font-size: 16px;
     }
     button {
       border: none;
-      border-radius: 8px;
-      padding: 14px 18px;
       background: #1683ff;
       color: white;
-      font-size: 16px;
+      cursor: pointer;
+    }
+    #error {
+      color: #ff7373;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Введите пароль</h1>
+    <form id="loginForm">
+      <input
+        id="password"
+        type="password"
+        placeholder="Введите пароль"
+        autocomplete="current-password"
+        required
+      >
+      <button type="submit">Войти</button>
+    </form>
+    <p id="error"></p>
+  </div>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const password = document.getElementById("password").value;
+      if (password === "scriptpatrickmaining") {
+        window.location.href = "welcome.html";
+      } else {
+        document.getElementById("error").textContent =
+          "Неверный пароль. Попробуй ещё раз.";
+      }
+    });
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добро пожаловать — Vilka Script</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111827;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .box {
+      width: 90%;
+      max-width: 380px;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      background: #1683ff;
+      color: white;
+      font-size: 17px;
       cursor: pointer;
     }
     button:hover {
       background: #0069df;
     }
-    .full-button {
-      display: block;
-      width: 100%;
-      margin-top: 12px;
-    }
-    .error {
-      color: #ff7373;
-      margin-top: 12px;
-    }
-    /* Третья страница */
-    #mainPage {
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Добро пожаловать!</h1>
+    <button onclick="window.location.href='panel.html'">
+      Продолжить
+    </button>
+  </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vilka Script — Панель управления</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
       min-height: 100vh;
       padding: 22px;
+      background: #111827;
+      color: white;
+      font-family: Arial, sans-serif;
     }
     .top-bar {
       display: flex;
@@ -80,109 +146,47 @@
     .site-name {
       font-size: 25px;
       font-weight: 800;
-      letter-spacing: 0.3px;
     }
-    .dashboard-title {
+    h2 {
       margin-top: 28px;
       margin-bottom: 18px;
       font-size: 21px;
-      font-weight: 700;
-      text-align: left;
     }
-    .buttons-panel {
+    button {
+      display: block;
       width: 100%;
+      padding: 15px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #1683ff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
     }
-    @media (max-width: 480px) {
-      #mainPage {
-        padding: 16px;
-      }
-      .site-name {
-        font-size: 23px;
-      }
+    button:hover {
+      background: #0069df;
     }
   </style>
 </head>
 <body>
-  <!-- Первая страница: пароль -->
-  <section id="passwordPage" class="page center-page" style="display: flex;">
-    <div class="login-box">
-      <h1>Введите пароль</h1>
-      <input
-        type="password"
-        id="passwordInput"
-        placeholder="Введите пароль"
-        autocomplete="current-password"
-      >
-      <button class="full-button" onclick="checkPassword()">
-        Войти
-      </button>
-      <p id="errorMessage" class="error"></p>
-    </div>
-  </section>
-  <!-- Вторая страница: приветствие -->
-  <section id="welcomePage" class="page center-page">
-    <div class="welcome-box">
-      <h1>Добро пожаловать!</h1>
-      <button class="full-button" onclick="continueToMain()">
-        Продолжить
-      </button>
-    </div>
-  </section>
-  <!-- Третья страница: панель управления -->
-  <section id="mainPage" class="page">
-    <header class="top-bar">
-      <div class="site-name">vilka script</div>
-    </header>
-    <h2 class="dashboard-title">Панель управления</h2>
-    <div class="buttons-panel">
-      <button class="full-button" onclick="manageAccounts()">
-        Управление аккаунтами
-      </button>
-      <button class="full-button" onclick="launchClicker()">
-        Запустить кликер
-      </button>
-    </div>
-  </section>
+  <header class="top-bar">
+    <div class="site-name">vilka script</div>
+  </header>
+  <h2>Панель управления</h2>
+  <button onclick="manageAccounts()">
+    Управление аккаунтами
+  </button>
+  <button onclick="launchClicker()">
+    Запустить кликер
+  </button>
   <script>
-    const correctPassword = "scriptpatrickmaining";
-    function showPage(pageId) {
-      document.querySelectorAll(".page").forEach(function(page) {
-        page.style.display = "none";
-      });
-      const selectedPage = document.getElementById(pageId);
-      if (pageId === "passwordPage" || pageId === "welcomePage") {
-        selectedPage.style.display = "flex";
-      } else {
-        selectedPage.style.display = "block";
-      }
-    }
-    function checkPassword() {
-      const enteredPassword =
-        document.getElementById("passwordInput").value;
-      if (enteredPassword === correctPassword) {
-        document.getElementById("errorMessage").textContent = "";
-        showPage("welcomePage");
-        } else {
-        document.getElementById("errorMessage").textContent =
-          "Неверный пароль. Попробуй ещё раз.";
-      }
-    }
-    function continueToMain() {
-      showPage("mainPage");
-    }
     function manageAccounts() {
       alert("Раздел «Управление аккаунтами» пока не настроен.");
     }
     function launchClicker() {
-      alert("Кликер пока не подключён. Сначала нужно добавить его логику.");
+      alert("Кликер пока не подключён.");
     }
-    document
-      .getElementById("passwordInput")
-      .addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-          checkPassword();
-        }
-      });
   </script>
 </body>
 </html>
